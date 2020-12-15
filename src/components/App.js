@@ -9,12 +9,13 @@ import CardContainer from './CardContainer';
 
 class App extends Component {
   render() {
+    console.log(hogs)
     return (
       <div className="App">
         <Nav />
         <HelloWorld />
         <Filter />
-        <CardContainer />
+        <CardContainer hogs={hogs}/>
       </div>
     );
   }
