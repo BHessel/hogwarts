@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 
 export default class Card extends Component {
+    
+    state = {showing : false}
 
     getImage = (hogName) => {
         let formattedName = hogName.split(" ").join("_").toLowerCase();
@@ -9,8 +11,13 @@ export default class Card extends Component {
         return pigPics;
       };
 
-    handleClick = (e) => {
-        console.log(e)
+    handleClick = () => {
+
+        this.setState({
+            showing: !this.state.showing
+        }
+        )
+        
         //when clicked (event fires)
         //change div style invisible
         //to visible
@@ -19,15 +26,19 @@ export default class Card extends Component {
 
     render() {
         return (
-            <div className='card' onClick={(e) => this.handleClick(e)}>
+            <div className='card' onClick={() => this.handleClick()}>
                 <div className='nameHeader'>
+                    
                     <a className='name'>
                         {this.props.hogData.name}
                     </a>
                     <div>
                         <img src={this.getImage(this.props.hogData.name)} alt="" />
                     </div>
-                    <div className = 'weight' style="invisible">
+
+                    { this.state.showing ? 
+                    <div>
+                    <div className = 'weight'>
                         <p>Weight: {this.props.hogData.weight}</p>
                     </div>
                     <div className = 'greasiness'>
@@ -35,12 +46,16 @@ export default class Card extends Component {
                     </div>
                     <div className = 'specialty'>
                         <p>Specialty: {this.props.hogData.specialty}</p>
-                    </div>
+                    </div> 
+                        </div> : null }
+
                 </div>
             </div> 
         )
     }
 }
+
+
 
 //Ray's Way:
 //.replace(/[\s]/g, "_").toLowerCase()
